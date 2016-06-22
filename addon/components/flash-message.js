@@ -7,6 +7,7 @@ const {
   getWithDefault,
   isPresent,
   run,
+  observer,
   on,
   get,
   set,
@@ -59,6 +60,15 @@ export default Component.extend({
     });
     set(this, 'pendingSet', pendingSet);
   }),
+
+  _startTimeouts: on('didInsertElement', observer('flash', function() {
+    let flash = get(this, 'flash');
+    if (get(flash, 'sticky')) {
+      return;
+    }
+
+    flash.startTimeouts();
+  })),
 
   progressDuration: computed('flash.showProgress', {
     get() {

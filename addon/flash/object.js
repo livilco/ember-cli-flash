@@ -79,6 +79,11 @@ export default EmberObject.extend(Evented, {
     this._setupTimers();
   },
 
+  startTimeouts() {
+    this._setTimer('exitTimer', 'exitMessage', get(this, 'timeout'));
+    this._setTimer('timer', 'destroyMessage', get(this, 'totalTimeout'));
+  },
+
   // private
   _setTimer(name, methodName, timeout) {
     return set(this, name, later(this, methodName, timeout));
