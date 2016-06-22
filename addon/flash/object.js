@@ -28,9 +28,6 @@ export default EmberObject.extend(Evented, {
     if (get(this, 'sticky')) {
       return;
     }
-
-    this._setTimer('exitTimer', 'exitMessage', get(this, 'timeout'));
-    this._setTimer('timer', 'destroyMessage', get(this, 'totalTimeout'));
   },
 
   destroyMessage() {
@@ -59,6 +56,11 @@ export default EmberObject.extend(Evented, {
     });
 
     this._super(...arguments);
+  },
+
+  startTimeouts() {
+    this._setTimer('exitTimer', 'exitMessage', get(this, 'timeout'));
+    this._setTimer('timer', 'destroyMessage', get(this, 'totalTimeout'));
   },
 
   // private
